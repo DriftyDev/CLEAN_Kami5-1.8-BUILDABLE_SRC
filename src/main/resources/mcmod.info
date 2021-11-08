@@ -1,0 +1,15 @@
+[
+  {
+    "modid": "kami5",
+    "name": "Kami5",
+    "description": "ez",
+    "version": "1.8",
+    "mcversion": "1.12.2-14.23.5.2854",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["max"],
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
