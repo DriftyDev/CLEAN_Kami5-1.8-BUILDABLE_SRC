@@ -110,7 +110,7 @@ jar {
                 'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
                 'TweakOrder': 0,
                 'FMLCorePluginContainsFMLMod': 'true',
-                'FMLCorePlugin': 'tech.mmmax.kami.mixin.MixinLoader',
+                'FMLCorePlugin': 'tech.mmmax.kami.loader.LoaderMain',
                 'ForceLoadAsMod': 'true',
                 'FMLAT': 'kami_at.cfg'
         )
