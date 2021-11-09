@@ -55,26 +55,26 @@ import tech.mmmax.kami.api.value.builder.ValueBuilder;
 public class Surround
 extends Module {
     Timer timer = new Timer();
-    Value<String> page = new ValueBuilder().withDescriptor("Page").withValue("Delays").withModes("Delays", "Placements", "Render", "Break").register(this);
-    Value<Number> delay = new ValueBuilder().withDescriptor("Delay").withValue(0).withRange(0, 1000).register(this);
-    Value<Number> blocksPerTick = new ValueBuilder().withDescriptor("BPT").withValue(20).withRange(1, 50).register(this);
-    Value<Number> retryAmount = new ValueBuilder().withDescriptor("Retry Amount").withValue(20).withRange(1, 50).register(this);
-    Value<Boolean> multiThread = new ValueBuilder().withDescriptor("Threading").withValue(false).register(this);
-    Value<String> mode = new ValueBuilder().withDescriptor("Mode").withValue("Dynamic").withModes("Dynamic", "Normal", "Calc").register(this);
-    Value<Number> allowHealth = new ValueBuilder().withDescriptor("Allow Health").withValue(5).withRange(0, 36).register(this);
-    Value<Number> calcRange = new ValueBuilder().withDescriptor("Calc Range").withValue(3).withRange(0, 10).register(this);
-    Value<Number> wallRange = new ValueBuilder().withDescriptor("Wall Range").withValue(3).withRange(0, 10).register(this);
-    Value<Number> raytraceHits = new ValueBuilder().withDescriptor("Raytrace Hits").withValue(2).withRange(1, 9).register(this);
-    Value<Number> shrinkFactor = new ValueBuilder().withDescriptor("Shrink Factor").withValue(0.3).withRange(0d, 1d).register(this);
-    Value<Boolean> oneThirteen = new ValueBuilder().withDescriptor("1.13", "oneThirteen").withValue(false).register(this);
-    Value<Boolean> antiPhase = new ValueBuilder().withDescriptor("Clip Extend").withValue(true).register(this);
-    Value<Number> clipTries = new ValueBuilder().withDescriptor("Clip Tries").withValue(2).withRange(1, 10).register(this);
-    Value<Boolean> predict = new ValueBuilder().withDescriptor("Predict").withValue(false).register(this);
-    Value<Boolean> center = new ValueBuilder().withDescriptor("Center").withValue(false).register(this);
-    Value<Boolean> centerBounds = new ValueBuilder().withDescriptor("Center Bounds").withValue(false).register(this);
-    Value<Boolean> jumpDisable = new ValueBuilder().withDescriptor("Jump Disable").withValue(true).register(this);
-    Value<Color> activeFillColor = new ValueBuilder().withDescriptor("Active Fill Color").withValue(new Color(0, 200, 12, 20)).register(this);
-    Value<Color> activeLineColor = new ValueBuilder().withDescriptor("Active Line Color").withValue(new Color(0, 200, 12, 255)).register(this);
+    Value<String> page = new ValueBuilder().withDescriptor("Page").withValue("Delays").withModes("Delays", "Placements", "Render").register(this);
+    Value<Number> delay = new ValueBuilder().withDescriptor("Delay").withValue(0).withRange(0, 1000).withPageParent(this.page).withPage("Delays").register(this);
+    Value<Number> blocksPerTick = new ValueBuilder().withDescriptor("BPT").withValue(20).withRange(1, 50).withPageParent(this.page).withPage("Delays").register(this);
+    Value<Number> retryAmount = new ValueBuilder().withDescriptor("Retry Amount").withValue(20).withRange(1, 50).withPageParent(this.page).withPage("Delays").register(this);
+    Value<Boolean> multiThread = new ValueBuilder().withDescriptor("Threading").withValue(false).withPageParent(this.page).withPage("Placements").register(this);
+    Value<String> mode = new ValueBuilder().withDescriptor("Mode").withValue("Dynamic").withModes("Dynamic", "Normal", "Calc").withPageParent(this.page).withPage("Placements").register(this);
+    Value<Number> allowHealth = new ValueBuilder().withDescriptor("Allow Health").withValue(5).withRange(0, 36).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Number> calcRange = new ValueBuilder().withDescriptor("Calc Range").withValue(3).withRange(0, 10).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Number> wallRange = new ValueBuilder().withDescriptor("Wall Range").withValue(3).withRange(0, 10).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Number> raytraceHits = new ValueBuilder().withDescriptor("Raytrace Hits").withValue(2).withRange(1, 9).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Number> shrinkFactor = new ValueBuilder().withDescriptor("Shrink Factor").withValue(0.3).withRange(0d, 1d).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Boolean> oneThirteen = new ValueBuilder().withDescriptor("1.13", "oneThirteen").withValue(false).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Boolean> antiPhase = new ValueBuilder().withDescriptor("Clip Extend").withValue(true).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Number> clipTries = new ValueBuilder().withDescriptor("Clip Tries").withValue(2).withRange(1, 10).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Boolean> predict = new ValueBuilder().withDescriptor("Predict").withValue(false).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Boolean> center = new ValueBuilder().withDescriptor("Center").withValue(false).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Boolean> centerBounds = new ValueBuilder().withDescriptor("Center Bounds").withValue(false).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Boolean> jumpDisable = new ValueBuilder().withDescriptor("Jump Disable").withValue(true).withPageParent(this.page).withPage("Placements").register(this);
+    Value<Color> activeFillColor = new ValueBuilder().withDescriptor("Active Fill Color").withValue(new Color(0, 200, 12, 20)).withPageParent(this.page).withPage("Render").register(this);
+    Value<Color> activeLineColor = new ValueBuilder().withDescriptor("Active Line Color").withValue(new Color(0, 200, 12, 255)).withPageParent(this.page).withPage("Render").register(this);
     double startY = 0.0;
     List<BlockPos> activeBlocks = new ArrayList<BlockPos>();
     boolean shouldPredict = false;
@@ -84,30 +84,6 @@ extends Module {
         super("Surround", Feature.Category.Combat);
 
         this.timer.setDelay((delay.getValue()).longValue());
-
-        this.handlePage(page.getValue());
-    }
-
-    void handlePage(String page) {
-        this.delay.setActive(page.equals("Delays"));
-        this.blocksPerTick.setActive(page.equals("Delays"));
-        this.retryAmount.setActive(page.equals("Delays"));
-        this.multiThread.setActive(page.equals("Placements"));
-        this.mode.setActive(page.equals("Placements"));
-        this.allowHealth.setActive(page.equals("Placements") && this.mode.getValue().equals("Calc"));
-        this.calcRange.setActive(page.equals("Placements") && this.mode.getValue().equals("Calc"));
-        this.oneThirteen.setActive(page.equals("Placements") && this.mode.getValue().equals("Calc"));
-        this.wallRange.setActive(page.equals("Placements") && this.mode.getValue().equals("Calc"));
-        this.raytraceHits.setActive(page.equals("Placements") && this.mode.getValue().equals("Calc"));
-        this.shrinkFactor.setActive(page.equals("Placements") && this.mode.getValue().equals("Calc"));
-        this.antiPhase.setActive(page.equals("Placements"));
-        this.clipTries.setActive(page.equals("Placements"));
-        this.predict.setActive(page.equals("Placements"));
-        this.center.setActive(page.equals("Placements"));
-        this.centerBounds.setActive(page.equals("Placements"));
-        this.jumpDisable.setActive(page.equals("Placements"));
-        this.activeFillColor.setActive(page.equals("Render"));
-        this.activeLineColor.setActive(page.equals("Render"));
     }
 
     @SubscribeEvent

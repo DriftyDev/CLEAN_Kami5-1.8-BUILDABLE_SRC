@@ -49,10 +49,10 @@ import tech.mmmax.kami.api.value.builder.ValueBuilder;
 public class Burrow
 extends Module {
     Value<String> page = new ValueBuilder().withDescriptor("Page").withValue("Placements").withModes("Placements", "Offsets", "Render").register(this);
-    Value<Number> offset = new ValueBuilder().withDescriptor("Offset").withValue(2).withRange(-5, 5).register(this);
-    Value<Boolean> bypass = new ValueBuilder().withDescriptor("Bypass").withValue(false).register(this);
-    Value<String> block = new ValueBuilder().withDescriptor("Block").withValue("EnderChest").withModes("EnderChest", "Obby", "Smart").register(this);
-    Value<Boolean> dynamic = new ValueBuilder().withDescriptor("Dynamic").withValue(false).register(this);
+    Value<Number> offset = new ValueBuilder().withDescriptor("Offset").withValue(2).withRange(-5, 5).withPageParent(this.page).withPage("Offsets").register(this);
+    Value<Boolean> bypass = new ValueBuilder().withDescriptor("Bypass").withValue(false).withPageParent(this.page).withPage("Offsets").register(this);
+    Value<String> block = new ValueBuilder().withDescriptor("Block").withValue("EnderChest").withModes("EnderChest", "Obby", "Smart").withPageParent(this.page).withPage("Placements").register(this);
+    Value<Boolean> dynamic = new ValueBuilder().withDescriptor("Dynamic").withValue(false).withPageParent(this.page).withPage("Placements").register(this);
     List<BlockPos> originalPos;
     boolean cancelling = false;
     Queue<CPacketConfirmTeleport> packets = new LinkedList<CPacketConfirmTeleport>();
@@ -62,15 +62,6 @@ extends Module {
 
     public Burrow() {
         super("Burrow", Feature.Category.Combat);
-
-        this.managePages(page.getValue());
-    }
-
-    public void managePages(String page) {
-        this.offset.setActive(page.equals("Offsets"));
-        this.bypass.setActive(page.equals("Offsets"));
-        this.block.setActive(page.equals("Placements"));
-        this.dynamic.setActive(page.equals("Placements"));
     }
 
     @Override

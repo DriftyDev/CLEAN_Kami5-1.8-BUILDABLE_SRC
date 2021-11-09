@@ -51,19 +51,19 @@ public class Nametags
 extends Module {
     public static Nametags INSTANCE;
     Value<String> page = new ValueBuilder().withDescriptor("Page").withValue("Colors").withModes("Colors", "Items", "Size").register(this);
-    Value<Color> background = new ValueBuilder().withDescriptor("Background").withValue(new Color(0, 0, 0, 25)).register(this);
-    Value<Color> textColor = new ValueBuilder().withDescriptor("Text Color").withValue(new Color(255, 255, 255)).register(this);
-    Value<Color> lineColor = new ValueBuilder().withDescriptor("Line Color").withValue(new Color(0, 0, 0, 150)).register(this);
-    Value<Color> boxColor = new ValueBuilder().withDescriptor("Box Color").withValue(new Color(25, 25, 25, 255)).register(this);
-    Value<Number> lineWidth = new ValueBuilder().withDescriptor("Line Width").withValue(1).withRange(0.1, 5).register(this);
-    Value<Boolean> ping = new ValueBuilder().withDescriptor("Ping").withValue(true).register(this);
-    Value<Boolean> health = new ValueBuilder().withDescriptor("Health").withValue(true).register(this);
-    Value<Boolean> hands = new ValueBuilder().withDescriptor("Hands").withValue(true).register(this);
-    Value<Boolean> armor = new ValueBuilder().withDescriptor("Armor").withValue(true).register(this);
-    Value<Boolean> playerBox = new ValueBuilder().withDescriptor("Player Box").withValue(false).register(this);
-    Value<Number> playerBoxWidth = new ValueBuilder().withDescriptor("Box Width").withValue(30).withRange(10, 60).register(this);
-    Value<Number> padding = new ValueBuilder().withDescriptor("Padding").withValue(1).withRange(0, 5).register(this);
-    Value<Number> scale = new ValueBuilder().withDescriptor("Scale").withValue(1).withRange(0, 10).register(this);
+    Value<Color> background = new ValueBuilder().withDescriptor("Background").withValue(new Color(0, 0, 0, 25)).withPageParent(this.page).withPage("Colors").register(this);
+    Value<Color> textColor = new ValueBuilder().withDescriptor("Text Color").withValue(new Color(255, 255, 255)).withPageParent(this.page).withPage("Colors").register(this);
+    Value<Color> lineColor = new ValueBuilder().withDescriptor("Line Color").withValue(new Color(0, 0, 0, 150)).withPageParent(this.page).withPage("Colors").register(this);
+    Value<Color> boxColor = new ValueBuilder().withDescriptor("Box Color").withValue(new Color(25, 25, 25, 255)).withPageParent(this.page).withPage("Colors").register(this);
+    Value<Number> lineWidth = new ValueBuilder().withDescriptor("Line Width").withValue(1).withRange(0.1, 5).withPageParent(this.page).withPage("Items").register(this);
+    Value<Boolean> ping = new ValueBuilder().withDescriptor("Ping").withValue(true).withPageParent(this.page).withPage("Items").register(this);
+    Value<Boolean> health = new ValueBuilder().withDescriptor("Health").withValue(true).withPageParent(this.page).withPage("Items").register(this);
+    Value<Boolean> hands = new ValueBuilder().withDescriptor("Hands").withValue(true).withPageParent(this.page).withPage("Items").register(this);
+    Value<Boolean> armor = new ValueBuilder().withDescriptor("Armor").withValue(true).withPageParent(this.page).withPage("Items").register(this);
+    Value<Boolean> playerBox = new ValueBuilder().withDescriptor("Player Box").withValue(false).withPageParent(this.page).withPage("Items").register(this);
+    Value<Number> playerBoxWidth = new ValueBuilder().withDescriptor("Box Width").withValue(30).withRange(10, 60).withPageParent(this.page).withPage("Items").register(this);
+    Value<Number> padding = new ValueBuilder().withDescriptor("Padding").withValue(1).withRange(0, 5).withPageParent(this.page).withPage("Size").register(this);
+    Value<Number> scale = new ValueBuilder().withDescriptor("Scale").withValue(1).withRange(0, 10).withPageParent(this.page).withPage("Size").register(this);
 
     void handlePage(String page) {
         this.background.setActive(page.equals("Colors"));
