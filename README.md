@@ -1,7 +1,7 @@
 # CLEAN Kami5 1.8 BUILDABLE_SRC
 Bored, found some sussy things in the src.
 
-(DISCLAIMER) It's not ratted, just a rare HWID auth system. 
+(DISCLAIMER) It's not ratted, just a rare HWID auth system. (Im not sure tho.)
 
 Pre-Built Jar doesn't work at 100%. Missing some stuff.
 
