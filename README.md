@@ -1,6 +1,8 @@
 # CLEAN_Kami5-1.8-BUILDABLE_SRC
 bored found some sussy things in the original src
 
+jar doesn't work at 100% access transformers missing
+
 tho i found this, max explain this. ill take down the repo but wtf is this
 whats does this ![unknown](https://user-images.githubusercontent.com/58635278/140938060-eee02959-a9eb-41f2-a196-8dabc023eb1b.png) (i researched and its like dll for linux)
 ![image](https://user-images.githubusercontent.com/58635278/140938160-42bee3c6-26e3-475e-b21d-3eb8e2f0318a.png)
